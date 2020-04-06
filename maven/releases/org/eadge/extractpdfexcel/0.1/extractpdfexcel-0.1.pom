@@ -25,6 +25,14 @@
         </developer>
     </developers>
 
+    <distributionManagement>
+       <repository>
+          <id>local.repo</id>
+          <name>Local Repository</name>
+          <url>file://C:\mvn-auslides-repository\maven\releases</url>
+       </repository>
+    </distributionManagement>
+
     <dependencies>
 
         <dependency>
@@ -58,89 +66,15 @@
     </dependencies>
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.4.0</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <executable>java</executable>
-                    <arguments>
-                        <argument>-classpath</argument>
-                        <classpath/>
-                        <argument>org.eadge.extractpdfexcel</argument>
-                    </arguments>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.6</version>
-                <executions>
-                    <execution>
-                        <id>unpack-dependencies</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>unpack-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <excludeScope>system</excludeScope>
-                            <excludeGroupIds>junit,org.mockito,org.hamcrest</excludeGroupIds>
-                            <outputDirectory>${project.build.directory}/classes</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <!-- Build
-                     an executable JAR -->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.4</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>org.eadge.extractpdfexcel.Main</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>2.4</version>
-                <executions>
-                    <execution>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <filters>
-                        <filter>
-                            <artifact>*:*</artifact>
-                            <excludes>
-                                <exclude>META-INF/*.SF</exclude>
-                                <exclude>META-INF/*.DSA</exclude>
-                                <exclude>META-INF/*.RSA</exclude>
-                            </excludes>
-                        </filter>
-                    </filters>
-                </configuration>
-            </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.7.0</version>
+				<configuration>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
+				</configuration>
+			</plugin>
         </plugins>
     </build>
 
